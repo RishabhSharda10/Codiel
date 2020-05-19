@@ -1,6 +1,7 @@
 module.exports.home = function(req,res){
 
 
+    console.log(req.cookies);
 
     var contactlist = [
         {
