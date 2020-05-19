@@ -1,6 +1,28 @@
 module.exports.home = function(req,res){
 
-    res.end('<h1>Oye Kake</h1>');
+
+
+    var contactlist = [
+        {
+            name:'Rishabh',
+            phone:'999999999'
+        },
+        {
+            name:'Rishu',
+            phone:'555555555'
+        
+        
+        }
+            
+        ];
+
+
+ return  res.render('home',{
+title:"Oye kake pra",
+contact_Lists:contactlist
+
+
+ });
 
 }
 
