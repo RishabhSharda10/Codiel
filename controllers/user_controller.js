@@ -1,51 +1,30 @@
 const User = require('../models/user');
 
-module.exports.profile = function(req,res){
 
-
-if (req.cookies.user_id){
-
-
-    User.findOne({_id:req.cookies.user_id},function(err,user){
-
-        if(err){console.log('Error in Signing Up user'); return; }
-
-        if (user){
-        
-
-            return  res.render('user_profile',{
-                title:"User Profile",
-                user:user
-                
-                 });
-                
-                }
-        else{
-        
-            return res.redirect('/user/sign-in');
-        }
-        
-        });
-
-
-}
-else{
-    return res.redirect('/user/sign-in');
-
-
+module.exports.profile = function(req, res){
+ 
+    return res.render('user_profile', {
+        title: 'User Profile'
+    })
 }
 
 
+module.exports.destroySession = function(req, res){
+ 
+req.logout();
 
-        
-
-
+return res.redirect('/');
 
 
 }
-
 
 module.exports.signup = function(req,res){
+
+    if (req.isAuthenticated()){
+
+        return res.redirect('/');  
+      }
+
     return  res.render('user_sign_up',{
         title:"Codiel | Sign Up"
         
@@ -53,6 +32,15 @@ module.exports.signup = function(req,res){
 }
 
 module.exports.signin = function(req,res){
+
+    if (req.isAuthenticated()){
+
+        return res.redirect('/');
+
+    }
+
+
+
     return  res.render('user_sign_in',{
         title:"Codiel| Sign In"
         
@@ -100,7 +88,10 @@ else{
 module.exports.createSession = function(req,res){
 
 
-User.findOne({email:req.body.email},function(err,user){
+    return res.redirect('/');
+
+
+/*User.findOne({email:req.body.email},function(err,user){
 
 if(err){console.log('Error in Signing in user'); return; }
 
@@ -122,7 +113,7 @@ else{
 }
 
 });
-
+*/
     
 }
 

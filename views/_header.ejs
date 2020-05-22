@@ -1,6 +1,36 @@
-    
 <header>
 
 Header
+<ul>
+
+<% if( locals.user){ %>
+
+    <li> 
+        <a href="/user/profile"><%= user.email %></a>
+    </li>
+
+    <li> 
+        <a href="/user/sign-out">Sign Out</a>
+    </li>
+
+
+<% } else { %>
+
+    <li> 
+        <a href="/user/sign-in">Sign in</a>
+    </li>
+
+    <li> 
+        <a href="/user/sign-up">Sign up</a>
+    </li>
+            
+
+<% } %>
+
+</ul>
+
+
 
 </header>
+
+
