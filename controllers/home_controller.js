@@ -1,29 +1,19 @@
+const Post = require('../models/posts');
+
 module.exports.home = function(req,res){
 
+Post.find({}).populate('user').exec(function(err,posts){
 
-    console.log(req.cookies);
 
-    var contactlist = [
-        {
-            name:'Rishabh',
-            phone:'999999999'
-        },
-        {
-            name:'Rishu',
-            phone:'555555555'
+    return  res.render('home',{
+        title:"Oye kake pra",
+        posts:posts
         
         
-        }
-            
-        ];
+         });
+        
 
-
- return  res.render('home',{
-title:"Oye kake pra",
-contact_Lists:contactlist
-
-
- });
+});
 
 }
 

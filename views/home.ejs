@@ -3,4 +3,36 @@
 <h1>My Home</h1>
 
 <script type="text/javascript" src="./js/home.js"> </script>
+ 
+<% if(locals.user) {%>
 
+<section id="feed-posts">
+<h4>Posts</h4>
+<form id="new-post-form" method="post" action="/post/create"
+>
+<textarea name="content" id="" cols="30" rows="3" placeholder="type here..." required></textarea>
+<input type="submit" value="Post">
+</form>
+
+
+
+<div id="posts-list-container" >
+<ul>
+
+<% for (post of posts  ) {%>
+    <li>
+    <p>
+    <%= post.content %>
+    <br/>
+    <small><%= post.user.name %></small>
+    </p>
+    </li>
+    
+<% } %>
+
+</ul>
+</div>
+
+</section>
+
+<% } %>
