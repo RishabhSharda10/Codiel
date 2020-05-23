@@ -1,33 +1,47 @@
 <header>
 
-Header
-<ul>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="/">
+      <img src="https://files.codingninjas.in/0000000000000723.jpg" alt="logo" style="width:40px;">
+    </a>
+    
+    <!-- Links -->
+    
+  
 
-<% if( locals.user){ %>
-
-    <li> 
-        <a href="/user/profile"><%= user.email %></a>
-    </li>
-
-    <li> 
-        <a href="/user/sign-out">Sign Out</a>
-    </li>
+<ul style="float: right;" class="navbar-nav">
 
 
-<% } else { %>
 
-    <li> 
-        <a href="/user/sign-in">Sign in</a>
-    </li>
+    <% if( locals.user){ %>
 
-    <li> 
-        <a href="/user/sign-up">Sign up</a>
-    </li>
-            
+        <li  class="nav-item"> 
+            <a class="nav-link" href="/user/profile/<%= user.id %>"><%= user.email %></a>
+        </li>
+    
+        <li  class="nav-item"> 
+            <a class="nav-link" href="/user/sign-out">Sign Out</a>
+        </li>
+    
+    
+    <% } else { %>
+    
+        <li  class="nav-item"> 
+            <a class="nav-link" href="/user/sign-in">Sign In</a>
+        </li>
+        <li  class="nav-item"> 
+            <a class="nav-link" href="/user/sign-up">Sign up</a>
+        </li>
+    
+    
+             
+    
+    <% } %>
+    
+    </ul>
 
-<% } %>
-
-</ul>
+</nav>
 
 
 

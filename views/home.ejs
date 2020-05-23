@@ -3,66 +3,48 @@
 <h1>My Home</h1>
 
 <script type="text/javascript" src="./js/home.js"> </script>
- 
-<% if(locals.user) {%>
 
-<section id="feed-posts">
-<h4>Posts</h4>
-<form id="new-post-form" method="post" action="/post/create"
->
-<textarea name="content" id="" cols="30" rows="3" placeholder="type here..." required></textarea>
-<input type="submit" value="Post">
-</form>
+<div id="home-container">
 
 
-
-<div id="posts-list-container" >
-<ul>
-
-<% for (post of posts  ) {%>
-    <li>
-    <p>
-    <%= post.content %>
-    <br/>
-    <small><%= post.user.name %></small>
-    </p>
-<div class="post-comments"> 
     <% if(locals.user) {%>
-    
-<form action="/comment/create" method="post">
-<input type="text" name="content" placeholder="Type here to add comment..."  required>
-<input type="hidden" name="post" value="<%= post._id%>" >
-<input type="submit" value="Add value">
-</form>
 
-        <%}%>
+    <section id="feed-posts">
+    <h4>Posts</h4>
+    <form id="new-post-form" method="post" action="/post/create"
+    >
+    <textarea name="content" id="" cols="30" rows="3" placeholder="type here..." required></textarea>
+    <input type="submit" value="Post">
+    </form>
 
-<div id="posts-comments-list" >
-    <ul  id="posts-comments<%= post._id %>">
-            
-            
 
-        <% for (comment of post.comments  ) {%>
-        <li>
-            <p>
-            <%= comment.content %>
-            <br/>
-            <small><%= comment.user.name %></small>
-            </p>
-        </li>
 
-        <%}%>
+    <div id="posts-list-container" >
+    <ul>
+
+    <% for (post of posts  ) {%>
+      <%- include('_post') -%>
+    <% } %>
+
     </ul>
-</div>
+    </div>
 
-    </div>    
-</li>
+    </section>
+
+
+    <section id="user-friends">
+    <h4>Friends</h4>
+    <% for (u of allUsers) {%>
     
-<% } %>
+    <p>
+        <a href="/user/profile/<%= u._id %>"><%= u.name %></a>
+    </p>
+    
+        <% } %>
+      
+        <% } %>
 
-</ul>
+
+    </section>
+
 </div>
-
-</section>
-
-<% } %>
