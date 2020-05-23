@@ -23,6 +23,9 @@ let comment = await Comment.create({
 
         post.save();
 
+req.flash("success","Comment Published");
+
+
 return res.redirect('/');
 
 
@@ -31,7 +34,8 @@ return res.redirect('/');
 
 } catch (err) {
 
-    console.log("Errorrs",err);        
+    req.flash("error",err);
+
     return;
 
 }
@@ -44,7 +48,8 @@ return res.redirect('/');
 
 module.exports.destroy = async function(req,res){
   
-let comment = await Comment.findById(req.params.id);
+try {
+    let comment = await Comment.findById(req.params.id);
     
    
 if (comment.user == req.user.id)
@@ -55,11 +60,17 @@ let postId = comment.post
 
 await Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}});
 
+req.flash("success","Comment Removed successfully");
+
+
 return res.redirect('back');
 
 }
 
 else{
+
+
+req.flash("error","You cannot remove this comment");
 
  return res.redirect('back');
 
@@ -68,6 +79,12 @@ else{
 
 
 
+} catch (err) {
 
-    }
+    req.flash("error",err);
+    
+
+}
+
+}
     

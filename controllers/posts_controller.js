@@ -11,6 +11,7 @@ try {
         user:req.user._id
         });
         
+    req.flash("success","Post Published");
         
 return res.redirect('back');
         
@@ -18,7 +19,7 @@ return res.redirect('back');
 
 catch (err) {
 
-    console.log("Errorrs",err);        
+    req.flash("error",err);
     return;
 }    
 }
@@ -36,11 +37,15 @@ try {
         post.remove();
     
         await Comment.deleteMany({post:req.params.id});
-    
+
+    req.flash("success","Post and associated comments deleted");
+        
         return res.redirect('back');
     }
     
     else{
+
+req.flash("error","You cannot delete this post");
         
     return res.redirect('back');
     
@@ -49,7 +54,7 @@ try {
 
 } catch (err) {
  
-    console.log("Error",err);        
+    req.flash("error",err);
     return;
 
     
