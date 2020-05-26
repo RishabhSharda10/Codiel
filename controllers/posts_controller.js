@@ -12,7 +12,23 @@ try {
         });
         
     req.flash("success","Post Published");
-        
+    
+    if (req.xhr){
+
+        return res.status(200).json({
+
+            data:{
+
+                post:post
+
+            },
+            message:"Post created"
+
+        })
+
+    }    
+
+
 return res.redirect('back');
         
 }
@@ -37,6 +53,22 @@ try {
         post.remove();
     
         await Comment.deleteMany({post:req.params.id});
+
+        if (req.xhr){
+
+            return res.status(200).json({
+    
+                data:{
+    
+                    post_id:req.params.id
+    
+                },
+                message:"Post deleted successfully"
+    
+            })
+    
+        }
+
 
     req.flash("success","Post and associated comments deleted");
         
