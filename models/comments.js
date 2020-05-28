@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const CommentSchema = new mongoose.Schema({
 
 content:{
@@ -19,7 +18,15 @@ post:{
 
     type:mongoose.Schema.Types.ObjectId,
     ref:'Post'
+},
+
+likes:[
+    {
+
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Like'
 }
+]
 
 
 },
