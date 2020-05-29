@@ -48,7 +48,7 @@ prefix:'/css'
 
 
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 
 console.log("env"+env.asset_path);
