@@ -226,3 +226,12 @@
 [0mGET /user/profile/css/header.css [33m404[0m 11.971 ms - 166[0m
 [0mGET /user/profile/css/footer.css [33m404[0m 9.387 ms - 166[0m
 [0mGET / [32m200[0m 48.724 ms - 7702[0m
+[0mGET / [32m200[0m 362.383 ms - 2154[0m
+[0mGET / [36m304[0m 111.753 ms - -[0m
+[0mGET /favicon.ico [33m404[0m 11.273 ms - 150[0m
+[0mGET /user/sign-in [32m200[0m 11.622 ms - 2098[0m
+[0mGET /user/css/layout.css [33m404[0m 4.322 ms - 158[0m
+[0mGET /user/css/header.css [33m404[0m 4.016 ms - 158[0m
+[0mGET /user/css/footer.css [33m404[0m 7.577 ms - 158[0m
+[0mPOST /user/create-session [36m302[0m 68.846 ms - 46[0m
+[0mGET / [32m200[0m 62.144 ms - 7842[0m
