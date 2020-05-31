@@ -20,9 +20,9 @@ try {
     }
     
     
-    let existingLike = await Like.findone({
+    let existingLike = await Like.findOne({
         likeable:req.query.id,
-        emodel:req.query.type,
+        onModel:req.query.type,
         user:req.user.id
 
     });
@@ -45,7 +45,7 @@ else{
         likeable:req.query.id,
         onModel:req.query.type
     });
-    likeable.likes.pull(Like._id);
+    likeable.likes.push(newLike._id);
     likeable.save();
 
 }

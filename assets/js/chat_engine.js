@@ -40,6 +40,8 @@ class ChatEngine {
                     user_email:self.userEmail,
                     chatroom:'codiel'
             });
+
+
             }
 
 
@@ -68,7 +70,7 @@ class ChatEngine {
  
              newMessage.addClass(messageType);
              $('#chat-messages-list').append(newMessage);
- 
+             $('#chat-message-input').val("");    
         });
 
         
