@@ -21,4 +21,19 @@
 <p><%= profile_user.name%></p>
 <p><%= profile_user.email%></p>
 
+<button>
+    <a class="Friend-button" href="/user/toogle-friend/?friend_id=<%=profile_user._id%>"><%= buttonText%></a>
+</button>
+
 <% }  %>
+
+
+<script src="<%= assetPath('js/home_friends.js') %>"></script>
+
+<script>
+    $('.Friend-button').each(function(){
+        let self = this;
+        let toggleFriend = new ToggleFriend(self);
+    });
+</script>
+

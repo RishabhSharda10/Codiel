@@ -1,21 +1,46 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const FriendShip = require('../models/friendship');
 
 
-module.exports.profile =  function(req, res){
+module.exports.profile =  async function(req, res){
+
+    let allfriends = await FriendShip.find({});    
+    let profile_user = await User.findById(req.params.id);
  
-User.findById(req.params.id,function(err,user){
+console.log("allfriends",allfriends);
+
+let buttonText = "Add Friend";
+
+
+
+if (allfriends.length>0){
+
+for(let i=0; i<allfriends.length; i++ ){
+
+    if ( (allfriends[i].from_user == req.user.id && allfriends[i].to_user == req.params.id) || (allfriends[i].from_user == req.params.id && allfriends[i].to_user == req.user.id)){
+
+        buttonText = "Remove Friend";
+    }
+
+}
+
+
+}
+
 
     return res.render('user_profile', {
         title: 'User Profile',
-        profile_user:user
-    })
+        profile_user:profile_user,
+        buttonText:buttonText
+    });
 
-});
 
     
 }
+
+
 
 module.exports.destroySession = function(req, res){
  
@@ -23,7 +48,7 @@ req.logout();
 
 req.flash("success","You have Logged out!");
 
-return res.redirect('/');
+return res.redirect('/user/sign-in');
 
 
 }
@@ -162,6 +187,103 @@ module.exports.update = async function(req,res){
     
     
 }
+
+
+
+
+
+
+module.exports.togglefriend = async function(req,res){
+        
+
+
+    console.log("Friend_ID="+req.query.friend_id+"and"+ req.user.id);    
+
+
+    try {
+
+    let Frendshipexists = false;
+    
+    let user1 = await User.findById(req.user.id);
+    let user2 = await User.findById(req.query.friend_id);        
+        
+        
+        let Frendshipexist1 = await FriendShip.findOne({
+            from_user:req.user.id,
+            to_user:req.query.friend_id,
+    
+        });
+    
+        let Frendshipexist2 = await FriendShip.findOne({
+            from_user:req.query.friend_id,
+            to_user:req.user.id,
+    
+        });
+
+        
+
+if (Frendshipexist1){
+    
+    user1.friendships.pull(Frendshipexist1._id);
+    user1.save();
+    Frendshipexist1.remove();
+    Frendshipexists = true;
+    
+
+    }
+
+else if (Frendshipexist2){
+    
+        user2.friendships.pull(Frendshipexist2._id);
+        user2.save();
+        Frendshipexist2.remove();
+        Frendshipexists = true;
+    
+
+    }
+
+    
+    else{
+    
+        let newFriend = await FriendShip.create({
+    
+            from_user:req.user.id,
+            to_user:req.query.friend_id
+                });
+
+        user1.friendships.push(newFriend._id);
+        user1.save();
+    
+    }
+    
+
+    console.log("Frendshipexists="+Frendshipexists);
+    return res.json(200,{
+    
+        message:"Request Successfull",
+        data:{
+    
+            Frendshipexists:Frendshipexists
+        }
+    });
+    
+    
+    } catch (err) {
+      
+        console.log(err)
+    return res.json(500,{
+    
+        message:'Internal Server Error'
+    });
+    
+    }
+    
+    
+
+
+}
+    
+    
 
 
 

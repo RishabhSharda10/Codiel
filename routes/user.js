@@ -11,6 +11,7 @@ router.get('/sign-up',userControllers.signup);
 router.get('/sign-in',userControllers.signin);
 router.get('/sign-out',userControllers.destroySession);
 router.post('/create',userControllers.create);
+router.post('/toogle-friend',userControllers.togglefriend);
 
 router.post('/create-session', passport.authenticate(
     'local',

@@ -7,7 +7,7 @@
 <div id="home-container">
 
 
-    <% if(locals.user) {%>
+    <% if(locals.user) {    %>
 
     <section id="feed-posts">
     <h4>Posts</h4>
@@ -32,9 +32,25 @@
     </section>
 
 
-    <section id="user-friends">
-    <h4>Friends</h4>
-    <% for (u of allUsers) {%>
+    <section id="users-section">
+    <div id="users-friends" ><h4>Friends</h4>
+        <% for (Friend of Friends) {%>  
+    
+            <p>
+                <a href="/user/profile/<%= Friend._id %>"><%= Friend.name %></a>
+            </p>
+            
+                <% } %>
+              
+
+    </div>
+<hr>
+
+
+<div id="users" >
+        
+<h4>All Users</h4>
+<% for (u of allUsers) {%>  
     
     <p>
         <a href="/user/profile/<%= u._id %>"><%= u.name %></a>
@@ -44,8 +60,8 @@
       
         <% } %>
 
-
-    </section>
+</div>
+</section>
 
 <%- include('_chat_box') -%>    
 
